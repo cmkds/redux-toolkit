@@ -1,35 +1,9 @@
 import React from "react";
 import { createStore } from "redux";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-const counterSlice = createSlice({
-  name: "counter",
-  initialState: { value: 0 },
-  reducers: {
-    up: (state, action) => {
-      state.value = state.value + action.step;
-    },
-  },
-});
-
-const store = configureStore({
-  // 카운터에 대한 리듀서다.
-  reducer: {
-    counter: counterSlice.reducer,
-  },
-});
-
-// function reducer(state, action) {
-//   if (action.type === "up") {
-//     return { ...state, value: state.value + action.step };
-//   }
-
-//   return state;
-// }
-
-// const initialState = { value: 1 };
-// const store = createStore(reducer, initialState);
+import store from "./store";
+import counterSlice, { up } from "./counterSlice";
 
 function Counter() {
   const dispatch = useDispatch();
@@ -41,7 +15,8 @@ function Counter() {
     <div>
       <button
         onClick={() => {
-          dispatch({ type: "up", step: 2 });
+          // dispatch(counterSlice.actions.up(2));
+          dispatch(up(2));
         }}
       >
         +
